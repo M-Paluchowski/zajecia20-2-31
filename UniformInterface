@@ -1,0 +1,79 @@
+base: user.com
+
+GET /users -> List<User> 200 OK
+POST /users { firstName: Marcin, lastName: P } -> 201 CREATED Location: /users/1
+GET /users/1 -> User 200 OK
+
+GET /users/1/addresses -> List<Address> 200 OK
+POST /users/1/addresses -> 201 CREATED Location: /users/1/adresses/2
+GET /users/1/addresses/2 -> Address 200 OK
+
+DELETE /users/1 -> 206 NO CONTENT
+
+POST /users { firstName: Marcin, lastName: P } -> id: 3
+POST /users { firstName: Marcin, lastName: P } -> id: 4
+POST /users { firstName: Marcin, lastName: P } -> id: 5
+POST /users { firstName: Marcin, lastName: P } -> id: 6
+POST /users { firstName: Marcin, lastName: P } -> id: 7
+
+PUT /users/3 { lastName: Pa } -> { id: 3, firstName: null, lastName: Pa }
+PUT /users/8 { firstName: Rafal } -> { id: 8, firstName: Rafal, lastName: null }
+
+POST /users { firstName: Marcin, lastName: P } -> 9
+PATCH /users/9 { lastName: Pa } -> { id: 9, firstName: Marcin, lastName: Pa }
+PATCH /users/10 { lastName: Pa } -> 404 NOT FOUND
+
+OPTIONS /users -> GET, POST
+
+POST /cart-management/users/1/cart/pay
+
+GET /users?firstName=Marcin
+
+-------------------------------------------------------------------------------
+{
+	"firstName": "Marcin",
+	"lastName": "P",
+	"phoneNumer": {
+		"type": "home",
+		"number": 666
+	},
+	"addresses": [
+		{
+			"street": "Piękna",
+			"city": "Wrocław"
+		},
+		{
+			"street": "Śliczna",
+			"city": "Wrocław"
+		},
+	]
+}
+-------------------------------------------------------------------------------
+<user>
+	<firstName>Marcin</firstName>
+	<lastName>Pa</lastName>
+	<phoneNumber>
+		<type>
+			home
+		</type>
+		<number>
+			666
+		</number>
+	</phoneNumber>
+	<addresses>
+		<address street="Piękna" city="Wrocław"/>
+		<address street="Śliczna" city="Wrocław"/>
+	</addresses>
+
+</user>
+-------------------------------------------------------------------------------
+firstName: Marcin
+lastName: Pa
+phoneNumber:
+	type: home
+	number: 666
+addesses:
+	-	street: Piękna
+		city: Wrocław
+	-	street: Śliczna
+		city: Wrocław
